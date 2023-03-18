@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+
+  .button {
+    @apply custom-focus rounded-full border-2 border-green-400 bg-white px-8 py-2 font-bold text-green-400 hover:bg-green-400 hover:text-white focus:bg-green-400 focus:text-white;
+  }
+
+  .button-inverse {
+    @apply custom-focus rounded-full border-2 border-white bg-green-400 px-8 py-2 font-bold text-white hover:border-green-400 hover:bg-white hover:text-green-400 focus:border-green-400 focus:bg-white focus:text-green-400;
+  }
+  
+
+  .card {
+    @apply column min-w-[20rem] items-center gap-8 rounded-2xl bg-white py-8 px-4 shadow-md sm:min-w-[24rem] sm:px-10;
+  }
+
+
+  .column {
+    @apply flex flex-col items-start justify-center gap-4;
+  }
+
+  .custom-focus {
+    @apply focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2;
+  }
+
+  .heading {
+    @apply text-lg font-semibold text-gray-700;
+  }
+
+  .highlight {
+    @apply ml-1 rounded-lg bg-neutral p-2 font-mono;
+  }
+
+  .error {
+    @apply w-full text-center text-red-600;
+  }
+
+  .input {
+    @apply custom-focus w-full rounded-xl border border-slate-300 focus:shadow-none p-2 bg-neutral;
+  }
+
+  .link {
+    @apply custom-focus rounded-md font-semibold text-green-400;
+  }
+
+  .row {
+    @apply flex flex-row items-center justify-start gap-1;
+  }
+}
+
+/* Basic editor styles */
+.theme-dark .MuiPaginationItem-text {
+  @apply text-[white];
+}
+
+@layer base {
+  .raleway {
+    font-family: "Raleway", sans-serif;
+  }
+
+  h1 {
+    @apply font-extrabold text-[42px] tracking-[0.01em] text-primary  font-raleway;
+  }
+  h2 {
+    @apply font-extrabold tracking-[0.01em] text-4xl text-primary  font-raleway;
+  }
+  h3 {
+    @apply font-bold tracking-[0.01em] text-2xl text-primary  font-raleway;
+  }
+  h4 {
+    @apply font-semibold tracking-[0.01em] text-lg font-raleway text-primary;
+  }
+  h5 {
+    @apply font-semibold text-primary  font-raleway text-[18px] tracking-[2px];
+  }
+  h6 {
+    @apply font-extrabold text-[13px] tracking-[2px] uppercase text-primary  font-raleway;
+  }
+  p {
+    @apply font-medium text-[16px] text-primary  font-raleway leading-[1.6923em];
+  }
+}
+
+/* Basic editor styles */
+.ProseMirror{
+  margin: 8px;
+}
+
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding: 0 1rem;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  line-height: 1.1;
+}
+
+.ProseMirror code {
+  background-color: #bebebe;
+  color: #616161;
+}
+
+.ProseMirror pre {
+  background: #757474;
+  color: #fff;
+  font-family: "JetBrainsMono", monospace;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+}
+.ProseMirror pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: 0.8rem;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ProseMirror blockquote {
+  padding-left: 1rem;
+  border-left: 2px solid #757474;
+}
+
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid #757474;
+  margin: 2rem 0;
+}
+
+.textEditor {
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+.menuBar {
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.menuBar button {
+  font-size: 18px;
+  margin: 7px;
+  margin-right: 15px;
+  outline: none;
+  border: none;
+  background: none;
+  color: rgb(70, 70, 70);
+  cursor: pointer;
+}
+.menuBar button:last-child {
+  margin-right: 7px;
+}
+
+.heading3 {
+  font-size: 15px;
+}
+
+button.is_active {
+  background: rgb(197, 197, 197);
+  padding: 2px 3px;
+  border-radius: 2px;
+}

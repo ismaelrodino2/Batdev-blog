@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id
+  avatarUrl String?   @map("avatar_url")
+  avatarKey String?   @map("avatar_key")
+  email     String?
+  name      String?
+  updatedAt DateTime? @map("updated_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  posts   Post[]
+  Comments Comment[]
+
+  @@map("Users")
+}
+
+model Post {
+  id            String              @id @default(uuid())
+  postPic       String?             @map("post_pic")
+  postPicKey    String?             @map("post_pickey")
+  title         String
+  content       String
+  allowComments Boolean             @default(false)
+  createdAt     DateTime            @default(now()) @map("created_at")
+  categories    CategoriesOnPosts[]
+  author        User                @relation(fields: [authorId], references: [id])
+  authorId      String // relation scalar field  (used in the `@relation` attribute above)
+  Comments       Comment[]
+
+  @@map("Posts")
+}
+
+model Category {
+  id    String              @id @default(uuid())
+  name  String
+  posts CategoriesOnPosts[]
+
+  @@map("Categories")
+}
+
+model CategoriesOnPosts {
+  post       Post     @relation(fields: [postId], references: [id])
+  postId     String // relation scalar field (used in the `@relation` attribute above)
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String // relation scalar field (used in the `@relation` attribute above)
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([postId, categoryId])
+}
+
+model Comment {
+  id       Int    @id @default(autoincrement())
+  content  String
+  post     Post   @relation(fields: [postId], references: [id])
+  postId   String // relation scalar field (used in the `@relation` attribute above)
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String // relation scalar field (used in the `@relation` attribute above)
+  createdAt DateTime  @default(now()) @map("created_at")
+  @@map("Comments")
+
+}
