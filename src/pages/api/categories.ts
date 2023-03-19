@@ -1,7 +1,7 @@
 import prisma from '../../utils/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function aa(req: NextApiRequest, res: NextApiResponse){
+export default async function categories(req: NextApiRequest, res: NextApiResponse){
     try{
         const categories = await prisma.category.findMany()
         res.status(200).json(categories)

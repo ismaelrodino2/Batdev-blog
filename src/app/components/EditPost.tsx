@@ -13,7 +13,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useContext, useState } from "react";
-import { Category, Post, PostNoCat } from "@/utils/types";
+import { Cat, Category, Post, PostNoCat } from "@/utils/types";
 import { BiEdit } from "react-icons/bi";
 import { DarkModeContext } from "@/contexts/DarkModeContext";
 import { BsFillTrashFill } from "react-icons/bs";
@@ -31,8 +31,8 @@ import { ModalDelete } from "./ModalDelete";
 
 type Props = {
   el: string;
-  setPosts: (value: PostNoCat[] | any) => PostNoCat[]|void;
-  categories: Array<Category>;
+  setPosts: (value: PostNoCat[] | any) => PostNoCat[] | void;
+  categories: Array<Cat>;
 };
 
 const EditPost = ({ el: elProp, setPosts, categories }: Props) => {
@@ -45,8 +45,9 @@ const EditPost = ({ el: elProp, setPosts, categories }: Props) => {
   const [description, setDescription] = useState(el.content);
   const [title, setTitle] = useState(el.title);
   const [postPicture, setPostPicture] = useState<string | File>(el.postPic);
-  const [selectedCategories, setSelectedCategories] = useState<Array<Category>>(
-    []
+  const getCatArr = el.categories.map((item: Category) => item.category);
+  const [selectedCategories, setSelectedCategories] = useState<any>(
+    getCatArr || []
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const handleOpen = () => setOpen(true);
@@ -55,7 +56,7 @@ const EditPost = ({ el: elProp, setPosts, categories }: Props) => {
   const handleEdit = async () => {
     try {
       setIsLoading(true);
-      const aa = await editPost(
+       await editPost(
         description,
         togglechecked,
         title,
@@ -154,7 +155,6 @@ const EditPost = ({ el: elProp, setPosts, categories }: Props) => {
       handleCloseDelete;
       const filterPosts = (current: PostNoCat[]): PostNoCat[] => {
         const value = current.filter((post) => post.id !== el?.id);
-        console.log(value);
         return value;
       };
 
@@ -261,7 +261,9 @@ const EditPost = ({ el: elProp, setPosts, categories }: Props) => {
               setSelectedCategories={setSelectedCategories}
               selectedCategories={selectedCategories}
             />
-            <Tiptap setDescription={setDescription} description={description} />
+            <Tiptap setDescription={setDescription} description={description} clearEditor={false} setClearEditor={function (value: boolean): void {
+              throw new Error("Function not implemented.");
+            } } />
             <div className="flex justify-end">
               <Button
                 variant="contained"

@@ -2,19 +2,15 @@ import { InferGetServerSidePropsType } from "next";
 import { use } from "react";
 import { cookies as nextcookies } from "next/headers";
 
-
 async function getCategoriesData() {
   try {
-    const res = await fetch("http://localhost:3000/api/categories", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-    console.log(res);
-  
-    return await res.json();
+    const categories = await prisma.category.findMany();
+    return categories;
   } catch (err) {
     console.log(err);
-    return null;
+    return [];
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
@@ -24,18 +20,22 @@ async function getPosts() {
 
   try {
     if (!cookies) return null;
+
     const posts = await prisma.post.findMany({
       where: {
         authorId: JSON.parse(cookies).user.user.id,
       },
       include: {
-        categories: true,
+        author: true,
+        categories: {
+          include: {
+            category: true,
+          },
+        },
       },
     });
 
-
- 
-    return posts
+    return posts;
   } catch (err) {
     console.log(err);
     return [];
@@ -44,8 +44,8 @@ async function getPosts() {
 
 export default async function UpdatePost() {
   const posts = await getPosts();
-  const categories: Category[] = await getCategoriesData();
-
+  const categories: Array<Cat> = await getCategoriesData();
+  console.log("asdsad", categories);
   return (
     <div className=" bg-neutral">
       <div className="container mx-auto px-4 py-4">
@@ -57,5 +57,5 @@ export default async function UpdatePost() {
 }
 
 import { MyPosts } from "../components/Myposts";
-import prisma from "@/utils/prisma";import { Category } from "@/utils/types";
-
+import prisma from "@/utils/prisma";
+import { Cat, Category } from "@/utils/types";

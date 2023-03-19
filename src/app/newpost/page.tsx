@@ -1,3 +1,4 @@
+import prisma from "@/utils/prisma";
 import { Category } from "@/utils/types";
 
 
@@ -8,15 +9,13 @@ const NewPostClient = dynamic(() => import("./ClientPage"), {
 });
 async function getCategoriesData() {
   try {
-    const res = await fetch("http://localhost:3000/api/categories", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-  
-    return await res.json();
+    const categories = await prisma.category.findMany();
+    return categories;
   } catch (err) {
     console.log(err);
-    return null;
+    return [];
+  } finally{
+    await prisma.$disconnect()
   }
 }
 

@@ -2,7 +2,7 @@ import prisma from '@/utils/prisma'
 import { Category, User } from '@/utils/types'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function aa(req: NextApiRequest, res: NextApiResponse){
+export default async function deleteComments(req: NextApiRequest, res: NextApiResponse){
 type DataType = {
   id:any
   authorId:string
@@ -22,7 +22,7 @@ if(data.authorId === data.userId){
                 id:data.id
             }
         })
-        res.status(200).json('Success')
+        res.status(200).json(post)
 
 }catch(err){
     console.log(err)

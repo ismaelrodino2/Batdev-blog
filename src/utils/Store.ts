@@ -46,7 +46,7 @@ export async function createPost(
       categories,
     };
     try {
-      const res = await fetch("http://localhost:3000/api/posts/create", {
+      const res = await fetch("/api/posts/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

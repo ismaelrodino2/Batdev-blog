@@ -20,6 +20,7 @@ export default function Login() {
   }
 
   if (user) {
+    
     return (
       <div className="card">
         <h2>Welcome!</h2>

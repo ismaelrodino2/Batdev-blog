@@ -189,7 +189,7 @@ const Post = async ({ params }: any) => {
                       (cat: CategoryOnPost, index: number) => {
                         return (
                           <span key={cat.category.id}>
-                            {(index && ", ") + cat.category.name}{" "}
+                            { cat.category.name}
                           </span>
                         );
                       }

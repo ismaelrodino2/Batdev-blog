@@ -2,7 +2,7 @@ import prisma from '@/utils/prisma'
 import { CatArr, Category, User } from '@/utils/types'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function aa(req: NextApiRequest, res: NextApiResponse){
+export default async function createPost(req: NextApiRequest, res: NextApiResponse){
 type DataType = {
   id:string
     title: string

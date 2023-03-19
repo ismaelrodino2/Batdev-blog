@@ -6,7 +6,7 @@ import {
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai/index";
 import { styled } from "@mui/material/styles";
 import { autocompleteClasses } from "@mui/material/Autocomplete";
-import { Categories, Category } from "@/utils/types";
+import { Cat, Categories, Category } from "@/utils/types";
 import { useEffect, memo } from "react";
 import { Box } from "@mui/material";
 
@@ -162,8 +162,8 @@ const Listbox = styled("ul")(
 );
 
 type PropTypes = {
-  categories: Array<Category>;
-  setSelectedCategories: (selectedCategories: Array<Category>) => void;
+  categories: Array<Cat>;
+  setSelectedCategories: any;
   selectedCategories: Array<Category>;
 };
 
@@ -172,8 +172,6 @@ function CustomizedHook({
   setSelectedCategories,
   selectedCategories,
 }: PropTypes) {
-  const [aa, setAa] = React.useState();
-
   const {
     getRootProps,
     getInputLabelProps,
@@ -193,14 +191,13 @@ function CustomizedHook({
     getOptionLabel: (option) => option.name,
   });
 
-
   return (
     <Box>
       <Root>
         <div {...getRootProps()}>
           <Label {...getInputLabelProps()}>Pick the categories</Label>
           <InputWrapper ref={setAnchorEl} className={focused ? "focused" : ""}>
-            {selectedCategories?.map((option: Category, index: number) => (
+            {selectedCategories?.map((option: any, index: number) => (
               <div key={index}>
                 <StyledTag label={option.name} {...getTagProps({ index })} />
               </div>

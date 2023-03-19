@@ -9,6 +9,7 @@ import {
   AccordionSummary,
   AlertColor,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -41,6 +42,7 @@ const NewPostClient = ({ categories }: PropTypes) => {
   const [description, setDescription] = useState("");
   const [postPicture, setPostPicture] = useState<any>(null);
   const [title, setTitle] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [severity, setSeverity] = useState<AlertColor | undefined>();
   const [state, setState] = useState<State>({
@@ -55,6 +57,7 @@ const NewPostClient = ({ categories }: PropTypes) => {
   );
 
   const submitPost = async () => {
+    setIsLoading(true);
     if (postPicture && description && title && selectedCategories) {
       try {
         await createPost(
@@ -69,15 +72,13 @@ const NewPostClient = ({ categories }: PropTypes) => {
         setTitle("");
         setSelectedCategories([]);
         setToggleChecked(false);
-        SuccessBar(setMessage, setSeverity, "Profile updated!", setOpen);
+        setClearEditor(true)
+        SuccessBar(setMessage, setSeverity, "Post created!", setOpen);
       } catch (err) {
         console.log(err);
-        ErrorBar(
-          setMessage,
-          setSeverity,
-          "Oops some error occurred.",
-          setOpen
-        );
+        ErrorBar(setMessage, setSeverity, "Oops some error occurred.", setOpen);
+      } finally {
+        setIsLoading(false);
       }
     } else if (!postPicture && description && title && selectedCategories) {
       ErrorBar(
@@ -91,8 +92,11 @@ const NewPostClient = ({ categories }: PropTypes) => {
     }
   };
 
+  const [clearEditor, setClearEditor] = useState(false)
   return (
     <div className="container mx-auto px-4">
+      {isLoading && <CircularProgress />}
+
       <div className="flex flex-col items-center flex-wrap bg-neutral py-4 text-primary gap-4 px-4">
         <h1>Create post</h1>
         <AlertBar
@@ -160,11 +164,13 @@ const NewPostClient = ({ categories }: PropTypes) => {
             value={title}
             className={"flex self-start"}
           />
-          <SelectCategory
-            categories={categories}
-            setSelectedCategories={setSelectedCategories}
-            selectedCategories={selectedCategories}
-          />
+          {categories && (
+            <SelectCategory
+              categories={categories}
+              setSelectedCategories={setSelectedCategories}
+              selectedCategories={selectedCategories}
+            />
+          )}
         </div>
 
         <div className="flex flex-col gap-2 w-full">
@@ -182,7 +188,7 @@ const NewPostClient = ({ categories }: PropTypes) => {
             />
           </div>
 
-          <Tiptap setDescription={setDescription} description={description} />
+          <Tiptap setDescription={setDescription} description={description} clearEditor={clearEditor} setClearEditor={setClearEditor} />
 
           <Button
             className="w-fit"

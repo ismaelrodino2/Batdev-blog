@@ -16,17 +16,16 @@ const EditPost = dynamic(() => import("./EditPost"), {
   ssr: false,
 });
 import { useState } from "react";
-import { Category, Post, PostNoCat } from "@/utils/types";
+import { Cat, Category, Post, PostNoCat } from "@/utils/types";
 import { BsFillTrashFill } from "react-icons/bs";
 import { State } from "./Account";
 type PropTypes = {
   posts: string;
-  categories: Array<Category>;
+  categories: Array<Cat>;
 };
 
 export const MyPosts = ({ categories, posts: postsProp }: PropTypes) => {
   const [posts, setPosts] = useState<PostNoCat[]>(JSON.parse(postsProp));
-  console.log(posts);
 
   const [checked, setChecked] = useState(false);
   const [open, setOpen] = useState(false);

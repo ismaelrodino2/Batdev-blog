@@ -143,9 +143,9 @@ const Comments = ({ comments: commentsString }: PropTypes) => {
                       {moment(comment.createdAt).fromNow()}
                     </span>
 
-                    <button onClick={() => handleOpenDelete(comment)}>
+                    {session && <button onClick={() => handleOpenDelete(comment)}>
                       <BsFillTrashFill />
-                    </button>
+                    </button>}
                   </div>
                 </div>
                 <div className="py-2">

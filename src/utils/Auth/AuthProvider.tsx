@@ -111,6 +111,7 @@ export const AuthProvider = (props: {
       signOut: () => {
         supabase.auth.signOut();
         destroyCookie(null, "supabase-auth");
+        window.location.reload();
       },
     };
   }, [initial, session, user, view]);

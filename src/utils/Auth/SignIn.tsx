@@ -69,8 +69,9 @@ const SignIn = () => {
 
       if (error) {
         setErrorMsg(error.message);
-      }
+      }else{
       window.location.reload();
+    }
     } catch (err) {
       ErrorBar(setMessage, setSeverity, "Oops, some error occurred.", setOpen);
 

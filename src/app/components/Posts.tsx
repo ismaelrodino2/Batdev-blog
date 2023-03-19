@@ -62,7 +62,7 @@ export default function Posts ({ post }: PropTypes) {
                     {post.categories.map((cat: Categories, index: number) => {
                       return (
                         <span key={cat.categoryId}>
-                          {(index && ", ") + cat.category.name}{" "}
+                          { cat.category.name}
                         </span>
                       );
                     })}

@@ -3,7 +3,7 @@ import "../styles/globals.css";
 export default function Head() {
   return (
     <>
-      <title>Next.js with Supabase Auth</title>
+      <title>BatDev</title>
       <link rel="icon" href="/favicon.ico" />
       <meta name="viewport" content="width=device-width" />
     </>

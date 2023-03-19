@@ -1,7 +1,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
-import React,{ useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import {
   FaBold,
@@ -49,7 +49,9 @@ const MenuBar = ({ editor }: any) => {
         <div className="m-2 flex gap-2 flex-col">
           <h6>Add image Url</h6>
           <TextField
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setImgLink(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setImgLink(e.target.value)
+            }
             id="outlined-basic"
             label="Image Url"
             variant="outlined"
@@ -144,11 +146,18 @@ const MenuBar = ({ editor }: any) => {
 };
 
 type PropTypes = {
-  setDescription:(desc:string)=>void
-  description: string
-}
+  setDescription: (desc: string) => void;
+  description: string;
+  clearEditor: boolean;
+  setClearEditor: (value: boolean) => void;
+};
 
-export const Tiptap = ({ setDescription, description }: PropTypes) => {
+export const Tiptap = ({
+  setDescription,
+  description,
+  clearEditor,
+  setClearEditor,
+}: PropTypes) => {
   const editor = useEditor({
     extensions: [StarterKit, Underline, Image],
     content: description,
@@ -158,6 +167,14 @@ export const Tiptap = ({ setDescription, description }: PropTypes) => {
       setDescription(html);
     },
   });
+
+  useEffect(() => {
+    if (clearEditor) {
+      editor?.commands.clearContent();
+      setClearEditor(false);
+    }
+  }, [clearEditor]);
+
 
   return (
     <div className="textEditor">

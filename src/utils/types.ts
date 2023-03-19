@@ -40,6 +40,7 @@ export type Categories = {
 };
 
 export type Category = {
+  category?: Cat;
   id: string;
   name: string;
 };
@@ -125,3 +126,8 @@ export type CatArr = Array<{
   assignedAt: Date;
   category: { connect: { id: string } };
 }>;
+
+export type Cat = {
+  id: string;
+  name: string;
+};
